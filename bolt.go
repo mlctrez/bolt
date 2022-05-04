@@ -50,3 +50,9 @@ func (s *Bolt) Get(bucket Key, receiver ValueReceiver) error {
 		return bucket.Bucket(tx).Get(receiver)
 	})
 }
+
+func (s *Bolt) Delete(bucket Key, key Key) error {
+	return s.View(func(tx *bbolt.Tx) error {
+		return bucket.Bucket(tx).Delete(key)
+	})
+}

@@ -14,6 +14,10 @@ func (b *Bucket) bBucket() *bbolt.Bucket {
 	return b.bucket
 }
 
+func (b *Bucket) Delete(key Key) error {
+	return b.bucket.Delete(key.B())
+}
+
 func (b *Bucket) Put(p ValueProvider) error {
 	value, err := p.Value()
 	if err != nil {
