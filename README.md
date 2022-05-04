@@ -4,3 +4,4 @@
 
 Wrapper for [etcd-io/bbolt](https://github.com/etcd-io/bbolt) for simple key value store use cases.
 
+

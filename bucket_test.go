@@ -17,9 +17,16 @@ type testValue struct {
 	v []byte
 }
 
-func (v *testValue) Key() Key              { return v.k }
-func (v *testValue) Value() []byte         { return v.v }
-func (v *testValue) SetValue(bytes []byte) { v.v = bytes }
+func (v *testValue) Key() Key {
+	return v.k
+}
+func (v *testValue) Value() ([]byte, error) {
+	return v.v, nil
+}
+func (v *testValue) SetValue(bytes []byte) error {
+	v.v = bytes
+	return nil
+}
 
 func TestBucket_Put(t *testing.T) {
 	req := require.New(t)
@@ -43,7 +50,7 @@ func TestBucket_Put(t *testing.T) {
 
 	readVal := &testValue{k: key}
 	req.Nil(bolt.View(func(tx *bbolt.Tx) error {
-		bucket.Bucket(tx).Get(readVal)
+		req.Nil(bucket.Bucket(tx).Get(readVal))
 		if readVal.v == nil {
 			return fmt.Errorf("value not read")
 		}

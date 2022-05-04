@@ -39,10 +39,10 @@ type HasKey interface {
 
 type ValueProvider interface {
 	HasKey
-	Value() []byte
+	Value() ([]byte, error)
 }
 
 type ValueReceiver interface {
 	HasKey
-	SetValue([]byte)
+	SetValue([]byte) error
 }
