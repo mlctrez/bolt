@@ -6,6 +6,8 @@ import (
 	"go.etcd.io/bbolt"
 )
 
+var ErrValueNotFound = errors.New("value not found")
+
 type Bucket struct {
 	bucket *bbolt.Bucket
 }
@@ -33,5 +35,3 @@ func (b *Bucket) Get(r ValueReceiver) error {
 	}
 	return r.SetValue(data)
 }
-
-var ErrValueNotFound = errors.New("value not found")

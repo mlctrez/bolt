@@ -1,21 +1,13 @@
-# bolt
+//go:build ignore
 
-[![Go Report Card](https://badge.mlctrez.com/mlctrez/bolt)](https://goreportcard.com/report/github.com/mlctrez/bolt)
-
-Wrapper for [etcd-io/bbolt](https://github.com/etcd-io/bbolt) for simple key value store use cases.
-
-### Example usage
-
-```go
 package main
 
 import (
 	"fmt"
 
 	"github.com/mlctrez/bolt"
-	"go.etcd.io/bbolt"	
+	"go.etcd.io/bbolt"
 )
-
 
 func main() {
 
@@ -54,7 +46,6 @@ func main() {
 	}
 }
 
-
 var _ bolt.ValueProvider = (*stringStorage)(nil)
 var _ bolt.ValueReceiver = (*stringStorage)(nil)
 
@@ -75,4 +66,3 @@ func (s *stringStorage) SetValue(bytes []byte) error {
 	s.value = string(bytes)
 	return nil
 }
-```
