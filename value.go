@@ -4,19 +4,19 @@ var _ ValueReceiver = (*Value)(nil)
 var _ ValueProvider = (*Value)(nil)
 
 type Value struct {
-	key   Key
-	value []byte
+	K Key
+	V []byte
 }
 
 func (v *Value) Key() Key {
-	return v.key
+	return v.K
 }
 
 func (v *Value) Value() ([]byte, error) {
-	return v.value, nil
+	return v.V, nil
 }
 
 func (v *Value) SetValue(bytes []byte) error {
-	v.value = bytes
+	v.V = bytes
 	return nil
 }
