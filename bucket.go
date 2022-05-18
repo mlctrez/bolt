@@ -12,10 +12,6 @@ type Bucket struct {
 	bucket *bbolt.Bucket
 }
 
-func (b *Bucket) bBucket() *bbolt.Bucket {
-	return b.bucket
-}
-
 func (b *Bucket) Delete(key Key) error {
 	return b.bucket.Delete(key.B())
 }
