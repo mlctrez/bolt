@@ -2,6 +2,7 @@ package bolt
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -18,6 +19,18 @@ func TestBolt_New(t *testing.T) {
 	req.NotNil(bolt)
 
 	defer func() { req.Nil(bolt.Close()) }()
+}
+
+func TestBolt_New_BadOpen(t *testing.T) {
+	req := require.New(t)
+	req.True(true)
+
+	tempDir := t.TempDir()
+	req.Nil(os.Chmod(tempDir, 0444))
+	bolt, err := New(filepath.Join(tempDir, "bolt.db"))
+	req.Nil(bolt)
+	req.NotNil(err)
+
 }
 
 func TestBolt_CreateBuckets(t *testing.T) {

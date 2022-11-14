@@ -12,6 +12,10 @@ type Bolt struct {
 
 func New(path string) (*Bolt, error) {
 	boltOptions := &bbolt.Options{Timeout: 5 * time.Second}
+	return NewWithOptions(path, boltOptions)
+}
+
+func NewWithOptions(path string, boltOptions *bbolt.Options) (*Bolt, error) {
 	if db, err := bbolt.Open(path, 0644, boltOptions); err != nil {
 		return nil, err
 	} else {

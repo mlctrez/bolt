@@ -9,6 +9,14 @@ import (
 	"go.etcd.io/bbolt"
 )
 
+var _ ValueProvider = (*errValueProvider)(nil)
+
+type errValueProvider struct {
+}
+
+func (e *errValueProvider) Key() Key               { return "key" }
+func (e *errValueProvider) Value() ([]byte, error) { return nil, fmt.Errorf("errValueProvider") }
+
 func TestBucket_Put(t *testing.T) {
 	req := require.New(t)
 	req.True(true)
@@ -38,6 +46,9 @@ func TestBucket_Put(t *testing.T) {
 		return nil
 	}))
 	req.Equal(valueBytes, readVal.V)
+
+	err = bolt.Put(bucket, &errValueProvider{})
+	req.NotNil(err)
 
 }
 
